@@ -13,6 +13,7 @@ build:
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   entry_points:
     - isympy = isympy:main
+  skip: true  # [py<36]
 
 requirements:
   build:
