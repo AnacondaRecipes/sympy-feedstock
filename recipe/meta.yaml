@@ -1,23 +1,22 @@
-{% set version = "1.9" %}
+{% set name = "sympy" %}
+{% set version = "1.10.1" %}
 
 package:
-  name: sympy
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/s/sympy/sympy-{{ version }}.tar.gz
-  sha256: c7a880e229df96759f955d4f3970d4cabce79f60f5b18830c08b90ce77cd5fdc
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 5939eeffdf9e152172601463626c022a2c27e75cf6278de8d401d50c9d58787b
 
 build:
   number: 0
+  skip: true  # [py<37]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   entry_points:
     - isympy = isympy:main
-  skip: true  # [py<36]
 
 requirements:
-  build:
-    - python                                 # [build_platform != target_platform]
   host:
     - mpmath
     - pip
@@ -29,6 +28,7 @@ requirements:
     - python
     - gmpy2 >=2.0.8   # [python_impl == "cpython" and not win]
   run_constrained:
+    # LaTeX Parser/Lexer
     - antlr-python-runtime >=4.7,<4.8
 
 test:
@@ -134,7 +134,7 @@ test:
 
 about:
   home: https://sympy.org
-  license: BSD-3-Clause
+  license: BSD-3-Clause AND MIT
   license_family: BSD
   license_file: LICENSE
   summary: Python library for symbolic mathematics
