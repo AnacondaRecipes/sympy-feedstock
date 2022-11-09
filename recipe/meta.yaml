@@ -1,7 +1,7 @@
 {% set version = "1.11.1" %}
 
 package:
-  name: sympy
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
