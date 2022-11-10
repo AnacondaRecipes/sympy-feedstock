@@ -34,6 +34,7 @@ requirements:
 test:
   requires:
     - pip
+    - pytest
   commands:
     - pip check
     - isympy --help
@@ -136,7 +137,10 @@ about:
   home: https://sympy.org
   license: BSD-3-Clause AND MIT
   license_family: BSD
-  license_file: LICENSE
+  license_file:
+    - LICENSE
+    - sympy/parsing/latex/LICENSE.txt
+    - data/TeXmacs/LICENSE
   summary: Python library for symbolic mathematics
   description: |
     SymPy is a Python library for symbolic mathematics. It aims to become a
