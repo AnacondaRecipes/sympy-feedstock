@@ -1,5 +1,5 @@
 {% set name = "sympy" %}
-{% set version = "1.10.1" %}
+{% set version = "1.11.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 5939eeffdf9e152172601463626c022a2c27e75cf6278de8d401d50c9d58787b
+  sha256: e32380dce63cb7c0108ed525570092fd45168bdae2faa17e528221ef72e88658
 
 build:
   number: 0
-  skip: true  # [py<37]
+  skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   entry_points:
     - isympy = isympy:main
@@ -34,6 +34,7 @@ requirements:
 test:
   requires:
     - pip
+    - pytest
   commands:
     - pip check
     - isympy --help
@@ -136,7 +137,10 @@ about:
   home: https://sympy.org
   license: BSD-3-Clause AND MIT
   license_family: BSD
-  license_file: LICENSE
+  license_file:
+    - LICENSE
+    - sympy/parsing/latex/LICENSE.txt
+    - data/TeXmacs/LICENSE
   summary: Python library for symbolic mathematics
   description: |
     SymPy is a Python library for symbolic mathematics. It aims to become a
