@@ -1,5 +1,5 @@
 {% set name = "sympy" %}
-{% set version = "1.11.1" %}
+{% set version = "1.12" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e32380dce63cb7c0108ed525570092fd45168bdae2faa17e528221ef72e88658
+  sha256: ebf595c8dac3e0fdc4152c51878b498396ec7f30e7a914d6071e674d49420fb8
 
 build:
   number: 0
@@ -67,10 +67,6 @@ test:
     - sympy.holonomic
     - sympy.integrals
     - sympy.integrals.benchmarks
-    - sympy.integrals.rubi
-    - sympy.integrals.rubi.parsetools
-    - sympy.integrals.rubi.rubi_tests
-    - sympy.integrals.rubi.rules
     - sympy.interactive
     - sympy.liealgebras
     - sympy.logic
