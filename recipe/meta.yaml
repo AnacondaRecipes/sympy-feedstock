@@ -12,13 +12,13 @@ source:
 build:
   number: 0
   skip: true  # [py<38]
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir --no-build-isolation -vvv
   entry_points:
     - isympy = isympy:main
 
 requirements:
   host:
-    - mpmath
+    - mpmath >=0.19
     - pip
     - python
     - setuptools
@@ -130,7 +130,7 @@ test:
     - sympy.vector
 
 about:
-  home: https://sympy.org
+  home: https://www.sympy.org
   license: BSD-3-Clause AND MIT
   license_family: BSD
   license_file:
@@ -144,7 +144,6 @@ about:
     simple as possible in order to be comprehensible and easily extensible.
   doc_url: https://docs.sympy.org/latest/index.html
   dev_url: https://github.com/sympy/sympy
-  doc_source_url: https://github.com/sympy/sympy/tree/master/doc
 
 extra:
   recipe-maintainers:
