@@ -1,5 +1,5 @@
 {% set name = "sympy" %}
-{% set version = "1.11.1" %}
+{% set version = "1.12" %}
 
 package:
   name: {{ name|lower }}
@@ -7,18 +7,18 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e32380dce63cb7c0108ed525570092fd45168bdae2faa17e528221ef72e88658
+  sha256: ebf595c8dac3e0fdc4152c51878b498396ec7f30e7a914d6071e674d49420fb8
 
 build:
   number: 0
   skip: true  # [py<38]
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir --no-build-isolation -vvv
   entry_points:
     - isympy = isympy:main
 
 requirements:
   host:
-    - mpmath
+    - mpmath 1.2.1
     - pip
     - python
     - setuptools
@@ -67,10 +67,6 @@ test:
     - sympy.holonomic
     - sympy.integrals
     - sympy.integrals.benchmarks
-    - sympy.integrals.rubi
-    - sympy.integrals.rubi.parsetools
-    - sympy.integrals.rubi.rubi_tests
-    - sympy.integrals.rubi.rules
     - sympy.interactive
     - sympy.liealgebras
     - sympy.logic
@@ -134,7 +130,7 @@ test:
     - sympy.vector
 
 about:
-  home: https://sympy.org
+  home: https://www.sympy.org
   license: BSD-3-Clause AND MIT
   license_family: BSD
   license_file:
@@ -148,7 +144,6 @@ about:
     simple as possible in order to be comprehensible and easily extensible.
   doc_url: https://docs.sympy.org/latest/index.html
   dev_url: https://github.com/sympy/sympy
-  doc_source_url: https://github.com/sympy/sympy/tree/master/doc
 
 extra:
   recipe-maintainers:
