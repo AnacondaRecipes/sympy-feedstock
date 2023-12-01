@@ -18,7 +18,6 @@ build:
 
 requirements:
   host:
-    - mpmath 1.2.1
     - pip
     - python
     - setuptools
@@ -26,10 +25,12 @@ requirements:
   run:
     - mpmath >=0.19
     - python
-    - gmpy2 >=2.0.8   # [python_impl == "cpython" and not win]
+    # gmpy2 brings added performance. It is not yet available for 3.12.
+    - gmpy2 >=2.0.8   # [not py==312]
   run_constrained:
     # LaTeX Parser/Lexer
     - antlr-python-runtime >=4.7,<4.8
+    - gmpy2 >=2.0.8
 
 test:
   requires:
