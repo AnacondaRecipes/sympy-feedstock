@@ -36,9 +36,12 @@ test:
   requires:
     - pip
     - pytest
+    - pytest-xdist
+    - hypothesis
   commands:
     - pip check
     - isympy --help
+    - python -c "import sympy; sympy.test(parallel=True)"
   imports:
     - sympy
     - sympy.algebras
