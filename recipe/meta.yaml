@@ -23,13 +23,13 @@ requirements:
     - setuptools
     - wheel
   run:
-    - mpmath >=0.19
+    - mpmath >=1.1.0,<1.4
     - python
     # gmpy2 brings added performance. It is not yet available for 3.12.
     - gmpy2 >=2.0.8   # [not py==312]
   run_constrained:
     # LaTeX Parser/Lexer
-    - antlr-python-runtime >=4.7,<4.8
+    - antlr-python-runtime >=4.11,<4.12
     - gmpy2 >=2.0.8
 
 test:
