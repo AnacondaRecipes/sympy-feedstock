@@ -1,13 +1,13 @@
 {% set name = "sympy" %}
-{% set version = "1.12" %}
+{% set version = "1.13.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ebf595c8dac3e0fdc4152c51878b498396ec7f30e7a914d6071e674d49420fb8
+  url: https://pypi.io/packages/source/s/sympy/sympy-{{ version }}.tar.gz
+  sha256: 401449d84d07be9d0c7a46a64bd54fe097667d5e7181bfe67ec777be9e01cb13
 
 build:
   number: 0
@@ -23,22 +23,25 @@ requirements:
     - setuptools
     - wheel
   run:
-    - mpmath >=0.19
+    - mpmath >=1.1.0,<1.4
     - python
     # gmpy2 brings added performance. It is not yet available for 3.12.
     - gmpy2 >=2.0.8   # [not py==312]
   run_constrained:
     # LaTeX Parser/Lexer
-    - antlr-python-runtime >=4.7,<4.8
+    - antlr-python-runtime >=4.11,<4.12
     - gmpy2 >=2.0.8
 
 test:
   requires:
     - pip
     - pytest
+    - pytest-xdist
+    - hypothesis
   commands:
     - pip check
     - isympy --help
+    - python -c "import sympy; sympy.test(parallel=True)"
   imports:
     - sympy
     - sympy.algebras
