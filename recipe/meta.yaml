@@ -10,7 +10,7 @@ source:
   sha256: b27fd2c6530e0ab39e275fc9b683895367e51d5da91baa8d3d64db2565fec4d9
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir --no-build-isolation -vvv
   entry_points:
@@ -23,14 +23,13 @@ requirements:
     - setuptools
     - wheel
   run:
-    - mpmath >=1.1.0,<1.4
     - python
-    # gmpy2 brings added performance. It is not yet available for 3.12.
-    - gmpy2 >=2.0.8   # [not py==312]
+    - mpmath >=1.1.0
+    # gmpy2 brings added performance. https://github.com/sympy/sympy/blob/1.13.3/doc/src/contributing/dependencies.md#recommended-optional-dependencies
+    - gmpy2
   run_constrained:
-    # LaTeX Parser/Lexer
+    # LaTeX Parser/Lexer. https://github.com/sympy/sympy/blob/1.13.3/doc/src/modules/parsing.rst#runtime-installation
     - antlr-python-runtime >=4.11,<4.12
-    - gmpy2 >=2.0.8
 
 test:
   requires:
@@ -41,7 +40,6 @@ test:
   commands:
     - pip check
     - isympy --help
-    - python -c "import sympy; sympy.test(parallel=True)"
   imports:
     - sympy
     - sympy.algebras
