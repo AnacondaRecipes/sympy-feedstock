@@ -5,4 +5,4 @@ from sympy import Rational
 a = Rational(14, 4)
 assert str(a) == '7/2'
 
-sympy.test()
+sympy.test(parallel=True)
