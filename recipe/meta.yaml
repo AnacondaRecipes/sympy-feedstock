@@ -1,17 +1,17 @@
 {% set name = "sympy" %}
-{% set version = "1.13.3" %}
+{% set version = "1.14.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/s/sympy/sympy-{{ version }}.tar.gz
-  sha256: b27fd2c6530e0ab39e275fc9b683895367e51d5da91baa8d3d64db2565fec4d9
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: d3d3fe8df1e5a0b42f0e7bdf50541697dbe7d23746e894990c030e2b05e72517
 
 build:
-  number: 1
-  skip: true  # [py<38]
+  number: 0
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir --no-build-isolation -vvv
   entry_points:
     - isympy = isympy:main
@@ -24,24 +24,18 @@ requirements:
     - wheel
   run:
     - python
-    - mpmath >=1.1.0
-    # gmpy2 brings added performance. https://github.com/sympy/sympy/blob/1.13.3/doc/src/contributing/dependencies.md#recommended-optional-dependencies
+    - mpmath >=1.1.0,<1.4
+    # gmpy2 brings added performance. https://github.com/sympy/sympy/blob/1.14.0/doc/src/contributing/dependencies.md#recommended-optional-dependencies
     - gmpy2
   run_constrained:
-    # LaTeX Parser/Lexer. https://github.com/sympy/sympy/blob/1.13.3/doc/src/modules/parsing.rst#runtime-installation
+    # LaTeX Parser/Lexer. https://github.com/sympy/sympy/blob/1.14.0/doc/src/modules/parsing.rst#runtime-installation
     - antlr-python-runtime >=4.11,<4.12
-
+    - hypothesis >=6.70.0
 test:
-  requires:
-    - pip
-    - pytest
-    - pytest-xdist
-    - hypothesis
-  commands:
-    - pip check
-    - isympy --help
   imports:
     - sympy
+    - sympy.abc
+    - sympy.release
     - sympy.algebras
     - sympy.assumptions
     - sympy.assumptions.handlers
@@ -130,6 +124,15 @@ test:
     - sympy.utilities._compilation
     - sympy.utilities.mathml
     - sympy.vector
+  requires:
+    - pip
+    - pytest >=7.1.0
+    - pytest-xdist
+    - hypothesis >=6.70.0
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - isympy --help
 
 about:
   home: https://www.sympy.org
